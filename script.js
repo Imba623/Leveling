@@ -1,9 +1,12 @@
-const timerElement = document.getElementById('timer');
+const timerElement1 = document.getElementById('timer1');
+const timerElement2 = document.getElementById('timer2');
 const startButton = document.getElementById('startBtn');
 const pauseButton = document.getElementById('pauseBtn');
 const resetButton = document.getElementById('resetBtn');
+const sound = document.getElementById('soundFile');
+
 let intervalID;
-let secondsRemaining = 10; // 25 минут * 60 секунд
+let secondsRemaining = 3000; // 25 минут * 60 секунд
 
 // Форматируем секунды в минуты и секунды
 function formatTime(seconds) {
@@ -16,16 +19,18 @@ function formatTime(seconds) {
 function updateTimer() {
     if (secondsRemaining > 0) {
         secondsRemaining--;
-        timerElement.textContent = formatTime(secondsRemaining);
+        timerElement1.textContent = formatTime(secondsRemaining);
+        timerElement2.textContent = formatTime(secondsRemaining);
     } else {
         clearInterval(intervalID); // Остановка таймера
-        alert("Время вышло!");
+        sound.play();
     }
 }
 
 // Запускаем таймер
 startButton.addEventListener('click', () => {
     intervalID = setInterval(updateTimer, 1000);
+    showNotification()
 });
 
 // Пауза таймера
@@ -36,6 +41,8 @@ pauseButton.addEventListener('click', () => {
 // Сбрасываем таймер
 resetButton.addEventListener('click', () => {
     clearInterval(intervalID);
-    secondsRemaining = 10;
-    timerElement.textContent = formatTime(secondsRemaining);
+    secondsRemaining = 3000;
+    timerElement1.textContent = formatTime(secondsRemaining);
+    timerElement2.textContent = formatTime(secondsRemaining);
 });
+
